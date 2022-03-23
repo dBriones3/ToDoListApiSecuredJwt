@@ -68,6 +68,7 @@ namespace ToDoListApiSecuredJwt.Controllers
         {
             var user = _userRepo.GetUserByEmail(loginRequest.Email);
 
+            if (user == null) return NotFound("User is not registered");
             if (!user.Password.Equals(loginRequest.Password)) return Unauthorized("Email/Password invalid");
 
             var tokenHandler = new JwtSecurityTokenHandler();
